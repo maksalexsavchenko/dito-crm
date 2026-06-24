@@ -1,0 +1,61 @@
+{
+  "nav": {
+    "dashboard": "Dashboard",
+    "inventory": "Inventory",
+    "sales": "Sales",
+    "repair": "Repair",
+    "contacts": "Contacts",
+    "reports": "Reports",
+    "kit": "UI Kit"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "subtitle": "Overview of your business",
+    "revenue": "Revenue this month",
+    "orders": "Orders",
+    "lowStock": "Low stock",
+    "repairs": "Active repairs",
+    "placeholder": "Revenue charts and activity feed will live here."
+  },
+  "inventory": {
+    "subtitle": "Stock levels across warehouses",
+    "search": "Search by name…",
+    "columns": "Columns",
+    "empty": "Nothing found",
+    "selected": "Selected",
+    "page": "Page",
+    "of": "of",
+    "col": {
+      "name": "Name",
+      "category": "Category",
+      "warehouse": "Warehouse",
+      "stock": "Stock",
+      "price": "Price",
+      "status": "Status"
+    },
+    "status": {
+      "in_stock": "In stock",
+      "low": "Low",
+      "out": "Out"
+    },
+    "bulk": {
+      "export": "Export",
+      "delete": "Delete"
+    },
+    "row": {
+      "edit": "Edit",
+      "duplicate": "Duplicate",
+      "delete": "Delete"
+    },
+    "toast": {
+      "exported": "Exported",
+      "deleted": "Deleted"
+    }
+  },
+  "common": {
+    "tenant": "Brand",
+    "language": "Language",
+    "comingSoon": "Module in development",
+    "mode": "Mode"
+  }
+}

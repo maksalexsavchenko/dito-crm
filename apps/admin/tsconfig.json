@@ -1,0 +1,15 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "moduleDetection": "force",
+    "paths": {
+      "@/*": ["src/*"],
+      "@dito/ui": ["../../packages/ui/src"],
+      "@dito/ui/*": ["../../packages/ui/src/*"],
+      "@dito/config": ["../../packages/config/src"],
+      "@dito/config/*": ["../../packages/config/src/*"]
+    }
+  },
+  "include": ["src", "vite.config.ts"]
+}
