@@ -63,6 +63,7 @@ export function DataTable<TData, TValue>({
   pageSize = 10,
   toolbar,
   bulkActions,
+  onRowClick,
   labels = {},
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([])
@@ -150,6 +151,20 @@ export function DataTable<TData, TValue>({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
+                  className={onRowClick ? "cursor-pointer" : undefined}
+                  onClick={
+                    onRowClick
+                      ? (e) => {
+                          if (
+                            (e.target as HTMLElement).closest(
+                              'button,input,a,[role="checkbox"],[role="menuitem"]',
+                            )
+                          )
+                            return
+                          onRowClick(row.original)
+                        }
+                      : undefined
+                  }
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>

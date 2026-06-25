@@ -1,6 +1,7 @@
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { ColumnDef } from '@tanstack/react-table';
-import { MoreHorizontal, Download, Trash2, Pencil, Copy } from 'lucide-react';
+import { MoreHorizontal, Download, Trash2, Pencil, Copy, Eye } from 'lucide-react';
 import {
   DataTable,
   SortableHeader,
@@ -16,6 +17,7 @@ import {
   toast,
 } from '@dito/ui';
 import { products, type Product, type StockStatus } from '../data/products';
+import { ProductDetailSheet } from '../components/ProductDetailSheet';
 
 const uah = new Intl.NumberFormat('uk-UA', {
   style: 'currency',
@@ -31,6 +33,13 @@ const statusClass: Record<StockStatus, string> = {
 
 export function Inventory() {
   const { t } = useTranslation();
+  const [selected, setSelected] = useState<Product | null>(null);
+  const [detailOpen, setDetailOpen] = useState(false);
+
+  const openDetail = (p: Product) => {
+    setSelected(p);
+    setDetailOpen(true);
+  };
 
   const columns: ColumnDef<Product>[] = [
     {
@@ -121,6 +130,10 @@ export function Inventory() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
+              <DropdownMenuItem onClick={() => openDetail(row.original)}>
+                <Eye className="size-4" /> {t('inventory.detail.view')}
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
               <DropdownMenuItem>
                 <Pencil className="size-4" /> {t('inventory.row.edit')}
               </DropdownMenuItem>
@@ -149,6 +162,7 @@ export function Inventory() {
       <DataTable
         columns={columns}
         data={products}
+        onRowClick={openDetail}
         searchColumn="name"
         searchPlaceholder={t('inventory.search')}
         labels={{
@@ -179,6 +193,8 @@ export function Inventory() {
           </>
         )}
       />
+
+      <ProductDetailSheet product={selected} open={detailOpen} onOpenChange={setDetailOpen} />
     </div>
   );
 }
