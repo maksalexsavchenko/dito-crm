@@ -400,8 +400,8 @@ export function ProductDetailSheet({
         </SheetHeader>
 
         <Tabs defaultValue="general" className="flex min-h-0 flex-1 flex-col gap-0">
-          <div className="overflow-x-auto border-b px-4">
-            <TabsList className="h-11 bg-transparent p-0">
+          <div className="no-scrollbar overflow-x-auto border-b px-4">
+            <TabsList variant="line" className="h-11 p-0">
               <TabsTrigger value="general">{t('inventory.tabs.general')}</TabsTrigger>
               <TabsTrigger value="batches">{t('inventory.tabs.batches')}</TabsTrigger>
               <TabsTrigger value="history">{t('inventory.tabs.history')}</TabsTrigger>

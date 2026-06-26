@@ -31,8 +31,32 @@
       "warehouse": "Склад",
       "stock": "Залишок",
       "price": "Ціна",
-      "status": "Статус"
+      "status": "Статус",
+      "sku": "Артикул",
+      "minStock": "Мін. залишок",
+      "image": "Фото"
     },
+    "wtabs": {
+      "residue": "Залишки",
+      "devices": "Пристрої",
+      "supplierOrders": "Замовлення постачальникам",
+      "receipt": "Оприбуткування",
+      "reservation": "Резервування",
+      "conversion": "Конвертації",
+      "transfer": "Переміщення",
+      "count": "Інвентаризації",
+      "writeoff": "Списання",
+      "returns": "Повернення"
+    },
+    "filter": {
+      "warehouse": "Склад",
+      "category": "Категорія",
+      "availability": "Доступність",
+      "all": "Всі",
+      "available": "В наявності",
+      "out": "Немає"
+    },
+    "wip": "Розділ у розробці",
     "status": {
       "in_stock": "В наявності",
       "low": "Закінчується",

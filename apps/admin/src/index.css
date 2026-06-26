@@ -114,3 +114,11 @@ body {
     @apply border-border outline-ring/50;
   }
 }
+
+/* Гортання без видимого скролбара (для смуги вкладок тощо). */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

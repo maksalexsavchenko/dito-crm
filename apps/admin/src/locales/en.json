@@ -31,8 +31,32 @@
       "warehouse": "Warehouse",
       "stock": "Stock",
       "price": "Price",
-      "status": "Status"
+      "status": "Status",
+      "sku": "Article",
+      "minStock": "Min. stock",
+      "image": "Photo"
     },
+    "wtabs": {
+      "residue": "Stock",
+      "devices": "Devices",
+      "supplierOrders": "Supplier orders",
+      "receipt": "Goods receipt",
+      "reservation": "Reservations",
+      "conversion": "Conversions",
+      "transfer": "Transfers",
+      "count": "Stocktakes",
+      "writeoff": "Write-offs",
+      "returns": "Returns"
+    },
+    "filter": {
+      "warehouse": "Warehouse",
+      "category": "Category",
+      "availability": "Availability",
+      "all": "All",
+      "available": "In stock",
+      "out": "Out"
+    },
+    "wip": "Section in development",
     "status": {
       "in_stock": "In stock",
       "low": "Low",

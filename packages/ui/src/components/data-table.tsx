@@ -98,7 +98,7 @@ export function DataTable<TData, TValue>({
             onChange={(e) =>
               table.getColumn(searchColumn)?.setFilterValue(e.target.value)
             }
-            className="h-9 max-w-xs"
+            className="h-9 w-44 lg:w-56"
           />
         )}
         {toolbar}
