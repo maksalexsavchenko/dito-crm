@@ -10,7 +10,7 @@ interface PostingsState {
   removePosting: (id: string) => void;
 }
 
-// Клієнтський стор оприбуткувань (поки без бекенду), як і stores/products.
+// Client-side postings store (no backend yet), same pattern as stores/products.
 export const usePostings = create<PostingsState>((set) => ({
   postings: seed,
   addPosting: (p) =>

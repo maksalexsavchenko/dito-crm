@@ -11,7 +11,7 @@ interface DevicesState {
   writeOff: (ids: string[]) => void;
 }
 
-// Клієнтський стор пристроїв (поки без бекенду), як і stores/products.
+// Client-side devices store (no backend yet), same pattern as stores/products.
 export const useDevices = create<DevicesState>((set) => ({
   devices: seed,
   addDevice: (d) => set((s) => ({ devices: [{ ...d, id: String(++nextId) }, ...s.devices] })),

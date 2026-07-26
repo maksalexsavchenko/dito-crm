@@ -405,7 +405,7 @@ function RuleDialog({ onCreate }: { onCreate: (rule: StockRule) => void }) {
   );
 }
 
-// ── Загальні ───────────────────────────────────────────────────
+// ── General tab ────────────────────────────────────────────────
 function GeneralTab({ form, setForm, price }: { form: Form; setForm: (f: Form) => void; price: number }) {
   const { t } = useTranslation();
   const set = (patch: Partial<Form>) => setForm({ ...form, ...patch });
@@ -587,7 +587,7 @@ function GeneralTab({ form, setForm, price }: { form: Form; setForm: (f: Form) =
   );
 }
 
-// ── Залишки ────────────────────────────────────────────────────
+// ── Stock tab ──────────────────────────────────────────────────
 function StockTab({ product }: { product: Product }) {
   const { t } = useTranslation();
   return (

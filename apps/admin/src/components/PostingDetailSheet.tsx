@@ -97,7 +97,7 @@ export function PostingDetailSheet({
     const item: PostingItem = {
       name: p.name,
       cell: postingCells[0],
-      price: Math.round(p.price * 0.8), // закупівельна ціна ≈ 80% від роздрібної
+      price: Math.round(p.price * 0.8), // purchase price ≈ 80% of retail
       qty: 1,
     };
     set({ items: [...form.items, item] });
@@ -206,7 +206,7 @@ export function PostingDetailSheet({
           <div>
             <div className="mb-2 text-sm font-semibold">Список товарів</div>
             <Field label="Найменування" required>
-              {/* key змушує селект скинутись після додавання позиції */}
+              {/* key resets the select after a line is added */}
               <Select key={form.items.length} onValueChange={addItem}>
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder="Введіть назву, штрихкод, код або артикул товару" />

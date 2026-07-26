@@ -46,7 +46,7 @@ export function DocumentDetailSheet({
   const numberCol = section.cols[0];
   const title = `${numberCol.header} ${row[numberCol.key] ?? ''}`.trim();
 
-  // Інфо-поля: всі колонки крім номера, суми та фото.
+  // Info fields: every column except the number, sum and image.
   const infoCols = section.cols.filter(
     (c) => c.key !== numberCol.key && c.kind !== 'sum' && c.kind !== 'image',
   );
@@ -91,7 +91,7 @@ export function DocumentDetailSheet({
         </SheetHeader>
 
         <div className="min-h-0 flex-1 space-y-5 overflow-y-auto p-4">
-          {/* Інфо-поля документа */}
+          {/* Document info fields */}
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
             {infoCols.map((c) =>
               c.kind === 'status' ? (

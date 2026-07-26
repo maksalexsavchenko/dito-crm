@@ -7,7 +7,7 @@ import {
 } from "lucide-react"
 import { Toaster as Sonner, toast, type ToasterProps } from "sonner"
 
-// Без next-themes (ми на Vite): тему читаємо з класу .dark на <html>.
+// No next-themes (we're on Vite): read the theme from the .dark class on <html>.
 const Toaster = ({ ...props }: ToasterProps) => {
   const theme =
     typeof document !== "undefined" &&

@@ -42,15 +42,15 @@ export interface DataTableLabels {
 export interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
-  /** id колонки, за якою фільтрує пошуковий інпут у тулбарі */
+  /** column id the toolbar search input filters by */
   searchColumn?: string
   searchPlaceholder?: string
   pageSize?: number
-  /** додаткові елементи зліва в тулбарі */
+  /** extra elements on the left side of the toolbar */
   toolbar?: React.ReactNode
-  /** рендериться, коли є вибрані рядки */
+  /** rendered when rows are selected */
   bulkActions?: (selected: TData[]) => React.ReactNode
-  /** клік по рядку (ігнорує кліки по кнопках/чекбоксах/посиланнях) */
+  /** row click handler (ignores clicks on buttons/checkboxes/links) */
   onRowClick?: (row: TData) => void
   labels?: DataTableLabels
 }
@@ -224,7 +224,7 @@ export function DataTable<TData, TValue>({
   )
 }
 
-/** Клікабельний заголовок колонки з перемиканням сортування. */
+/** Clickable column header that toggles sorting. */
 export function SortableHeader({
   column,
   children,

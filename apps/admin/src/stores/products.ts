@@ -10,7 +10,7 @@ interface ProductsState {
   removeProduct: (id: string) => void;
 }
 
-// Клієнтський стор товарів (поки без бекенду). CRUD одразу відображається в таблиці.
+// Client-side product store (no backend yet). CRUD is reflected in the table immediately.
 export const useProducts = create<ProductsState>((set) => ({
   products: seed,
   addProduct: (p) => set((s) => ({ products: [{ ...p, id: String(++nextId) }, ...s.products] })),

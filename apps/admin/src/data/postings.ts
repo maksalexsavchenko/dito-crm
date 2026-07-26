@@ -1,22 +1,22 @@
-// Оприбуткування (postings) — прихід товару на склад від постачальника.
-// Структура полів повторює /app/warehouse/get-income-transactions.
+// Postings — goods received into a warehouse from a supplier.
+// Field structure mirrors /app/warehouse/get-income-transactions.
 
 export interface PostingItem {
   name: string;
-  cell: string; // комірка (bin location)
+  cell: string; // bin location
   price: number;
   qty: number;
 }
 
 export interface Posting {
   id: string;
-  num: string; // id_label, напр. H200
+  num: string; // id_label, e.g. H200
   createdBy: string;
   createdAt: string; // ISO
   updatedBy?: string;
   updatedAt?: string;
-  invoice: string; // document_id, напр. «Б/Н»
-  invoiceDate: string; // ISO (тільки дата)
+  invoice: string; // document_id, e.g. "Б/Н" (no invoice number)
+  invoiceDate: string; // ISO (date only)
   supplier: string;
   warehouse: string;
   comment: string;
@@ -41,7 +41,7 @@ export function postingTotal(p: Pick<Posting, 'items'>): number {
   return p.items.reduce((acc, i) => acc + i.price * i.qty, 0);
 }
 
-// ── Періоди фільтра «Створено» (як у RoApp) ────────────────────
+// ── Created-period filter presets (as in RoApp) ────────────────
 export type Period =
   | 'all'
   | 'today'
@@ -72,7 +72,7 @@ const startOfDay = (d: Date) => {
 };
 const startOfWeek = (d: Date) => {
   const x = startOfDay(d);
-  x.setDate(x.getDate() - ((x.getDay() + 6) % 7)); // тиждень з понеділка
+  x.setDate(x.getDate() - ((x.getDay() + 6) % 7)); // week starts on Monday
   return x;
 };
 const startOfMonth = (d: Date) => {
@@ -93,7 +93,7 @@ const shift = (d: Date, unit: 'day' | 'month' | 'year', n: number) => {
   return x;
 };
 
-/** Чи потрапляє дата у вибраний період. */
+/** Whether the date falls within the selected period. */
 export function inPeriod(iso: string, period: Period, now = new Date()): boolean {
   if (period === 'all') return true;
   const at = new Date(iso);

@@ -1,13 +1,13 @@
-// Пристрої (assets у RoApp) — вироби клієнтів або компанії, які ми відстежуємо
-// окремо від товарів: у них є серійний номер/IMEI, власник і історія обслуговування.
-// Структура полів повторює /app/warehouse/get-assets.
+// Devices ("assets" in RoApp) — items owned by clients or the company, tracked
+// separately from products: they carry a serial number/IMEI, an owner and a
+// service history. Field structure mirrors /app/warehouse/get-assets.
 
 export type DeviceOwner = 'company' | 'client';
 export type DeviceStatus = 'active' | 'written_off';
 
 export interface Device {
   id: string;
-  uid: string; // IMEI або серійний номер
+  uid: string; // IMEI or serial number
   type: string;
   group: string;
   brand: string;
@@ -19,7 +19,7 @@ export interface Device {
   owner: DeviceOwner;
   clientName: string;
   clientPhone: string;
-  warehouse: string; // склад компанії; для клієнтських — місце зберігання за замовчуванням
+  warehouse: string; // company warehouse; default storage location for client-owned devices
   docs: string[];
   status: DeviceStatus;
 }
@@ -33,7 +33,7 @@ export const deviceStates = [
   'Не вмикається',
 ];
 
-// Каскад Група → Бренд → Модель (у RoApp кожен наступний селект залежить від попереднього).
+// Group → Brand → Model cascade (in RoApp each select depends on the previous one).
 export const deviceCatalog: Record<string, Record<string, string[]>> = {
   Смартфон: {
     Apple: ['iPhone 15 Pro Max', 'iPhone 14', 'iPhone 13 Pro'],
@@ -61,12 +61,12 @@ export const deviceCatalog: Record<string, Record<string, string[]>> = {
 
 export const deviceGroups = Object.keys(deviceCatalog);
 
-/** Назва пристрою, як її показує RoApp: група + бренд + модель. */
+/** Device title as RoApp renders it: group + brand + model. */
 export function deviceTitle(d: Pick<Device, 'group' | 'brand' | 'model'>): string {
   return [d.group, d.brand, d.model].filter(Boolean).join(' ');
 }
 
-/** Де лежить пристрій: у клієнта чи на складі компанії. */
+/** Where the device is kept: with the client or in a company warehouse. */
 export function deviceLocation(d: Pick<Device, 'owner' | 'clientName' | 'warehouse'>): string {
   return d.owner === 'client' ? `Клієнт › ${d.clientName}` : d.warehouse;
 }

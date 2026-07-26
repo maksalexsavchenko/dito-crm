@@ -1,5 +1,5 @@
 // ── Feature flags ──────────────────────────────────────────────
-// Кожен модуль вмикається per-tenant / per-license.
+// Each module is toggled per tenant / per license.
 export type FeatureFlag =
   | 'inventory'
   | 'sales'
@@ -16,14 +16,14 @@ export const ALL_FEATURES: FeatureFlag[] = [
 ];
 
 // ── White-label theme ──────────────────────────────────────────
-// Мінімальний набір токенів, які перевизначаються на рівні tenant.
+// Minimal token set overridable per tenant.
 export interface TenantTheme {
   primary: string;
   primaryForeground: string;
 }
 
 // ── Deployment mode ────────────────────────────────────────────
-// Один codebase → два режими (без форку коду).
+// One codebase → two modes (no code fork).
 export type DeploymentMode = 'cloud' | 'dedicated';
 
 // ── Tenant config ──────────────────────────────────────────────

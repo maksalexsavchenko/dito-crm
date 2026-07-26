@@ -1,5 +1,5 @@
-// Конфіги вкладок складу за реальною структурою RoApp.
-// Ukrainian-first (RoApp лише українською); en-локалізацію цих розділів — пізніше.
+// Warehouse tab configs based on RoApp's real structure.
+// Ukrainian-first (RoApp is Ukrainian-only); English localization comes later.
 
 export type WColKind = 'mono' | 'muted' | 'bold' | 'status' | 'sum' | 'image';
 
@@ -21,13 +21,13 @@ export interface WSection {
   emptyText?: string;
 }
 
-// Узагальнені позиції документа («Список товарів») для карток документів.
+// Generic document line items ("Product list") for document cards.
 export const mockDocItems = [
   { name: 'iPhone 14 128 midnight NEW', sn: '353404352056383', cell: 'Комірка 1', price: '21 565', qty: '1', sum: '21 565' },
   { name: 'AirPods Pro 2 USB-C', sn: '', cell: 'Комірка 3', price: '9 499', qty: '2', sum: '18 998' },
 ];
 
-// Розділи, у яких картка документа має «Список товарів».
+// Sections whose document card includes a "Product list".
 export const docHasItems = new Set([
   'transfer',
   'writeoff',
@@ -38,7 +38,7 @@ export const docHasItems = new Set([
   'count',
 ]);
 
-// Колір бейджа за статусом.
+// Badge color by status.
 export const statusColor: Record<string, string> = {
   'Готово до відправлення': 'bg-blue-500/15 text-blue-600',
   'В дорозі': 'bg-warning/15 text-warning',
@@ -48,8 +48,8 @@ export const statusColor: Record<string, string> = {
   Скасовано: 'bg-destructive/15 text-destructive',
 };
 
-// Пристрої (devices) та оприбуткування (receipt) мають власні сторінки —
-// див. components/DevicesSection і components/PostingsSection.
+// Devices and postings (receipt) have dedicated pages —
+// see components/DevicesSection and components/PostingsSection.
 export const warehouseSections: Record<string, WSection> = {
   supplierOrders: {
     description: 'Створюйте замовлення постачальнику для поповнення товарів і керування доставками.',

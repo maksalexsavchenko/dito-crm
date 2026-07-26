@@ -1,8 +1,8 @@
 import type { TenantConfig } from '@dito/config';
 
 /**
- * Застосовує тему tenant-а, перевизначаючи CSS-змінні на :root.
- * Це і є механізм white-label: один codebase, різні бренди.
+ * Applies a tenant's theme by overriding CSS variables on :root.
+ * This is the white-label mechanism: one codebase, different brands.
  */
 export function applyTenantTheme(t: TenantConfig): void {
   const root = document.documentElement;

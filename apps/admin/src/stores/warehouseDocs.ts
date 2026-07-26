@@ -10,7 +10,7 @@ interface DocsState {
   addDoc: (sectionId: string, row: WRow) => void;
 }
 
-// Клієнтський стор документів складу. "Створити" додає рядок у відповідний розділ.
+// Client-side warehouse documents store. "Create" prepends a row to the given section.
 export const useWarehouseDocs = create<DocsState>((set) => ({
   rows: initial,
   addDoc: (sectionId, row) =>

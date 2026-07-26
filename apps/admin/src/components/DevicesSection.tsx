@@ -26,7 +26,7 @@ export function DevicesSection() {
   const [owner, setOwner] = useState('all');
   const [wh, setWh] = useState('all');
   const [type, setType] = useState('all');
-  // RoApp за замовчуванням показує лише активні пристрої.
+  // RoApp defaults to showing active devices only.
   const [availability, setAvailability] = useState('active');
 
   const openDetail = (d: Device) => {

@@ -19,7 +19,7 @@ function flatten(nodes: CategoryNode[], depth: number, expanded: Set<string>, ou
   }
 }
 
-// Пошук: гілки з бодай одним збігом лишаються розгорнутими, решта ховається.
+// Search: branches with at least one match stay expanded, the rest are hidden.
 function flattenMatching(nodes: CategoryNode[], depth: number, query: string, out: FlatRow[]): boolean {
   let matchedAny = false;
   for (const node of nodes) {
@@ -71,7 +71,7 @@ export function CategoryTreeSelect({
   const [query, setQuery] = useState('');
   const q = query.trim().toLowerCase();
   const inputRef = useRef<HTMLInputElement>(null);
-  const closeTimer = useRef<ReturnType<typeof setTimeout>>();
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   const rows = useMemo(() => {
     const out: FlatRow[] = [];

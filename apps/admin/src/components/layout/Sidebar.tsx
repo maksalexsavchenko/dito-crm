@@ -43,14 +43,14 @@ const selectCls = 'w-full rounded-md border border-white/15 bg-white/5 px-2 py-1
 export function Sidebar() {
   const { t } = useTranslation();
   const { sidebarOpen, toggleSidebar, tenant, tenantId, setTenant, dark, toggleDark } = useUI();
-  // Наведення розгортає згорнуту панель тимчасово (як прев'ю, поверх контенту,
-  // не зсуваючи його — той бере ширину лише з sidebarOpen). Розгорнута ж
-  // панель (по кліку) залишається фіксованою і на hover не реагує.
+  // Hovering a collapsed sidebar expands it temporarily (as an overlay preview
+  // that doesn't shift page content — the layout only reads sidebarOpen).
+  // A pinned-open sidebar stays fixed and ignores hover.
   const [hovered, setHovered] = useState(false);
   const previewing = hovered && !sidebarOpen;
   const expanded = sidebarOpen || previewing;
 
-  // Ховаємо пункти, вимкнені для цього tenant-а (feature-flags).
+  // Hide items disabled for this tenant (feature flags).
   const visible = items.filter((i) => !i.feature || isEnabled(tenant, i.feature));
 
   function onTenant(e: React.ChangeEvent<HTMLSelectElement>) {

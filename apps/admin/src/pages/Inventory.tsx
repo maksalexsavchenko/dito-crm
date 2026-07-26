@@ -48,7 +48,7 @@ const uah = new Intl.NumberFormat('uk-UA', {
 const categories = [...new Set(products.map((p) => p.category))];
 const warehouses = [...new Set(products.map((p) => p.warehouse))];
 
-// Серійний облік і мін. залишок виводимо з категорії (без зміни даних).
+// Serial tracking and min stock are derived from the category (data untouched).
 const serialCategories = new Set(['Смартфони', 'Ноутбуки', 'Планшети']);
 const isSerial = (p: Product) => serialCategories.has(p.category);
 const minStockFor = (p: Product) => (serialCategories.has(p.category) ? 3 : 8);
@@ -59,7 +59,7 @@ const statusClass: Record<StockStatus, string> = {
   out: 'bg-destructive/15 text-destructive',
 };
 
-// Сторінкові вкладки складу (як у RoApp): прості або групи з випадним меню.
+// Warehouse page tabs (as in RoApp): plain tabs or dropdown groups.
 type WTabLeaf = { id: string };
 type WTabGroup = { group: string; children: WTabLeaf[] };
 type WTabEntry = WTabLeaf | WTabGroup;
@@ -298,7 +298,7 @@ export function Inventory() {
       </div>
 
       <Tabs value={wtab} onValueChange={setWtab}>
-        {/* Вкладки переносяться на новий рядок (як у RoApp), а не ховаються в горизонтальний скрол. */}
+        {/* Tabs wrap onto new rows (as in RoApp) instead of hiding in a horizontal scroller. */}
         <div className="mb-4 border-b">
           <TabsList
             variant="line"

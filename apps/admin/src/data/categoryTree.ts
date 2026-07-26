@@ -1,4 +1,4 @@
-// Ілюстративне дерево категорій (як у RoApp) для вибору батьківської категорії.
+// Illustrative category tree (as in RoApp) for the parent-category picker.
 
 export interface CategoryNode {
   name: string;

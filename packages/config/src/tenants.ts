@@ -1,7 +1,7 @@
 import type { TenantConfig } from './index';
 
-// Демонстраційні tenant-и: показують white-label з одного codebase.
-// На проді ці конфіги приходять із tenant config API.
+// Demo tenants: showcase white-label from a single codebase.
+// In production these configs come from the tenant config API.
 export const tenants: Record<string, TenantConfig> = {
   demo: {
     id: 'demo',
@@ -18,7 +18,7 @@ export const tenants: Record<string, TenantConfig> = {
     name: 'ТехноМаркет',
     shortName: 'ТМ',
     theme: { primary: '#16a34a', primaryForeground: '#ffffff' },
-    // Магазин без сервісного модуля — repair вимкнено.
+    // Retail store without the service module — repair disabled.
     features: { inventory: true, sales: true, repair: false, contacts: true, reports: true },
     defaultLocale: 'uk',
     currency: 'UAH',
@@ -29,7 +29,7 @@ export const tenants: Record<string, TenantConfig> = {
     name: 'FixHub Service',
     shortName: 'FH',
     theme: { primary: '#db2777', primaryForeground: '#ffffff' },
-    // Сервісний центр — окремий бренд (dedicated інстанс).
+    // Service center — separate brand (dedicated instance).
     features: { inventory: true, sales: true, repair: true, contacts: true, reports: true },
     defaultLocale: 'uk',
     currency: 'USD',

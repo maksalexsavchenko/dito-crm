@@ -8,7 +8,7 @@ import { applyTenantTheme } from './lib/theme';
 import './i18n';
 import './index.css';
 
-// Застосовуємо тему дефолтного tenant-а до першого рендеру.
+// Apply the default tenant's theme before the first render.
 applyTenantTheme(tenants[defaultTenantId]);
 
 const queryClient = new QueryClient();
