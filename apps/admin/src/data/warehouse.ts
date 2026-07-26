@@ -49,28 +49,8 @@ export const statusColor: Record<string, string> = {
   Скасовано: 'bg-destructive/15 text-destructive',
 };
 
+// Пристрої (devices) мають власну сторінку — див. components/DevicesSection.
 export const warehouseSections: Record<string, WSection> = {
-  devices: {
-    description:
-      'Створюйте вироби, що належать вашим клієнтам або компанії, щоб відстежувати їх рух, обслуговування та місцезнаходження.',
-    createLabel: 'Пристрій',
-    searchKey: 'name',
-    cols: [
-      { key: 'imei', header: 'IMEI', kind: 'mono' },
-      { key: 'img', header: 'Фото', kind: 'image' },
-      { key: 'name', header: 'Найменування', kind: 'bold' },
-      { key: 'owner', header: 'Власник' },
-      { key: 'warehouse', header: 'Склад', kind: 'muted' },
-      { key: 'doc', header: 'Документ', kind: 'muted' },
-    ],
-    rows: [
-      { imei: '351122574222421', name: 'iPhone 13 Pro 256 graphite', owner: 'Клієнт › Apple', warehouse: 'Київ', doc: '9-0011' },
-      { imei: '358611743988943', name: 'iPhone 12 Pro 128 silver', owner: 'Компанія', warehouse: 'Львів', doc: 'B8' },
-      { imei: '490154203237518', name: 'Samsung Galaxy S23 256', owner: 'Клієнт › Іванов', warehouse: 'Дніпро', doc: '9-0042' },
-      { imei: '353247104783921', name: 'MacBook Air 13" M2', owner: 'Компанія', warehouse: 'Київ', doc: 'B12' },
-    ],
-  },
-
   supplierOrders: {
     description: 'Створюйте замовлення постачальнику для поповнення товарів і керування доставками.',
     createLabel: 'Замовлення',
