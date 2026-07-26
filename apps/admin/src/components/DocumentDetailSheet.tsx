@@ -54,6 +54,35 @@ export function DocumentDetailSheet({
   const hasItems = docHasItems.has(id);
   const itemsTotal = row.sum || '21 565';
 
+  function printDoc() {
+    const w = window.open('', '_blank', 'width=760,height=900');
+    if (!w) {
+      toast.error('Дозвольте спливаючі вікна для друку');
+      return;
+    }
+    const info = infoCols.map((c) => `<div><span>${c.header}</span><b>${row![c.key] ?? '—'}</b></div>`).join('');
+    const itemRows = hasItems
+      ? mockDocItems
+          .map(
+            (it) =>
+              `<tr><td>${it.name}${it.sn ? `<div class="sn">${it.sn}</div>` : ''}</td><td>${it.cell}</td><td class="r">${it.price}</td><td class="r">${it.qty} шт</td><td class="r">${it.sum} грн</td></tr>`,
+          )
+          .join('')
+      : '';
+    w.document.write(
+      `<!doctype html><html lang="uk"><head><meta charset="utf-8"><title>${title}</title><style>` +
+        '*{font-family:system-ui,-apple-system,sans-serif;box-sizing:border-box}body{margin:32px;color:#0f172a}h1{font-size:20px;margin:0 0 16px}.info{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}.info span{display:block;font-size:11px;color:#64748b}.info b{font-size:13px;font-weight:600}table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;padding:8px;border-bottom:1px solid #e2e8f0}th{background:#f1f5f9}.r{text-align:right}.sn{font-size:11px;color:#64748b;font-family:monospace}.totals{margin-top:16px;text-align:right;font-size:14px}.totals b{font-size:16px}' +
+        `</style></head><body><h1>${title}</h1><div class="info">${info}</div>` +
+        (hasItems
+          ? `<table><thead><tr><th>Найменування</th><th>Комірка</th><th class="r">Ціна</th><th class="r">К-сть</th><th class="r">Сума</th></tr></thead><tbody>${itemRows}</tbody></table><div class="totals">Разом: <b>${itemsTotal} грн</b></div>`
+          : '') +
+        '</body></html>',
+    );
+    w.document.close();
+    w.focus();
+    setTimeout(() => w.print(), 250);
+  }
+
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent className="flex w-full flex-col gap-0 p-0 sm:max-w-2xl">
@@ -145,7 +174,7 @@ export function DocumentDetailSheet({
           <Button variant="outline" onClick={() => onOpenChange(false)}>
             Закрити
           </Button>
-          <Button onClick={() => toast('Друк документа — скоро', { description: title })}>Друк</Button>
+          <Button onClick={printDoc}>Друк</Button>
         </SheetFooter>
       </SheetContent>
     </Sheet>

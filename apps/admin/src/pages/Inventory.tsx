@@ -8,6 +8,8 @@ import {
   Pencil,
   Copy,
   Eye,
+  Plus,
+  ChevronDown,
   Image as ImageIcon,
 } from 'lucide-react';
 import {
@@ -21,11 +23,6 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
   Tabs,
   TabsList,
   TabsTrigger,
@@ -36,7 +33,9 @@ import {
 import { products, type Product, type StockStatus } from '../data/products';
 import { ProductDetailSheet } from '../components/ProductDetailSheet';
 import { WarehouseSection } from '../components/WarehouseSection';
+import { FilterSelect } from '../components/FilterSelect';
 import { warehouseSections } from '../data/warehouse';
+import { useProducts } from '../stores/products';
 
 const uah = new Intl.NumberFormat('uk-UA', {
   style: 'currency',
@@ -58,70 +57,103 @@ const statusClass: Record<StockStatus, string> = {
   out: 'bg-destructive/15 text-destructive',
 };
 
-// Сторінкові вкладки складу (як у RoApp).
-const warehouseTabs = [
-  'residue',
-  'devices',
-  'supplierOrders',
-  'receipt',
-  'reservation',
-  'conversion',
-  'transfer',
-  'count',
-  'writeoff',
-  'returns',
+// Сторінкові вкладки складу (як у RoApp): прості або групи з випадним меню.
+type WTabLeaf = { id: string };
+type WTabGroup = { group: string; children: WTabLeaf[] };
+type WTabEntry = WTabLeaf | WTabGroup;
+
+const warehouseTabs: WTabEntry[] = [
+  { id: 'residue' },
+  { id: 'devices' },
+  {
+    group: 'purchaseOrders',
+    children: [{ id: 'supplierOrders' }, { id: 'backorders' }, { id: 'reorder' }],
+  },
+  { id: 'receipt' },
+  { id: 'reservation' },
+  { id: 'conversion' },
+  { id: 'transfer' },
+  { id: 'count' },
+  { id: 'writeoff' },
+  {
+    group: 'returns',
+    children: [{ id: 'clientReturns' }, { id: 'purchaseReturns' }],
+  },
 ];
 
-function FilterSelect({
-  label,
-  value,
-  onValueChange,
-  options,
+const warehouseLeafIds = warehouseTabs.flatMap((tab) => ('children' in tab ? tab.children.map((c) => c.id) : [tab.id]));
+
+function WarehouseTabGroup({
+  group,
+  items,
+  active,
+  onSelect,
+  t,
 }: {
-  label: string;
-  value: string;
-  onValueChange: (v: string) => void;
-  options: { value: string; label: string }[];
+  group: string;
+  items: WTabLeaf[];
+  active: string;
+  onSelect: (id: string) => void;
+  t: (key: string) => string;
 }) {
+  const isActive = items.some((c) => c.id === active);
   return (
-    <Select value={value} onValueChange={onValueChange}>
-      <SelectTrigger className="h-9 w-auto gap-1.5">
-        <span className="text-muted-foreground">{label}:</span>
-        <SelectValue />
-      </SelectTrigger>
-      <SelectContent>
-        {options.map((o) => (
-          <SelectItem key={o.value} value={o.value}>
-            {o.label}
-          </SelectItem>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <button
+          type="button"
+          className={cn(
+            'relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1 rounded-md border border-transparent px-2 py-1 text-sm font-medium whitespace-nowrap text-foreground/60 transition-all hover:text-foreground',
+            "after:absolute after:inset-x-0 after:bottom-[-5px] after:h-0.5 after:bg-foreground after:opacity-0 after:transition-opacity",
+            isActive && 'text-foreground after:opacity-100',
+          )}
+        >
+          {t(`inventory.wtabs.${group}`)}
+          <ChevronDown className="size-3.5" />
+        </button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="start">
+        {items.map((c) => (
+          <DropdownMenuItem key={c.id} onSelect={() => onSelect(c.id)}>
+            {t(`inventory.wtabs.${c.id}`)}
+          </DropdownMenuItem>
         ))}
-      </SelectContent>
-    </Select>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
 
 export function Inventory() {
   const { t } = useTranslation();
+  const allProducts = useProducts((s) => s.products);
   const [selected, setSelected] = useState<Product | null>(null);
   const [detailOpen, setDetailOpen] = useState(false);
+  const [createMode, setCreateMode] = useState(false);
   const [wh, setWh] = useState('all');
   const [cat, setCat] = useState('all');
   const [avail, setAvail] = useState('all');
+  const [wtab, setWtab] = useState('residue');
 
   const openDetail = (p: Product) => {
     setSelected(p);
+    setCreateMode(false);
+    setDetailOpen(true);
+  };
+  const openCreate = () => {
+    setSelected(null);
+    setCreateMode(true);
     setDetailOpen(true);
   };
 
   const filtered = useMemo(
     () =>
-      products.filter(
+      allProducts.filter(
         (p) =>
           (wh === 'all' || p.warehouse === wh) &&
           (cat === 'all' || p.category === cat) &&
           (avail === 'all' || (avail === 'available' ? p.status !== 'out' : p.status === 'out')),
       ),
-    [wh, cat, avail],
+    [allProducts, wh, cat, avail],
   );
 
   const columns: ColumnDef<Product>[] = [
@@ -252,17 +284,36 @@ export function Inventory() {
 
   return (
     <div>
-      <h1 className="mb-1 text-2xl font-semibold">{t('nav.inventory')}</h1>
-      <p className="mb-4 text-sm text-muted-foreground">{t('inventory.subtitle')}</p>
+      <div className="mb-4 flex items-start justify-between gap-4">
+        <div>
+          <h1 className="text-2xl font-semibold">{t('nav.inventory')}</h1>
+          <p className="text-sm text-muted-foreground">{t('inventory.subtitle')}</p>
+        </div>
+        <Button className="shrink-0" onClick={openCreate}>
+          <Plus className="size-4" />
+          Товар
+        </Button>
+      </div>
 
-      <Tabs defaultValue="residue">
+      <Tabs value={wtab} onValueChange={setWtab}>
         <div className="no-scrollbar mb-4 overflow-x-auto border-b">
           <TabsList variant="line" className="h-10 p-0">
-            {warehouseTabs.map((v) => (
-              <TabsTrigger key={v} value={v} className="whitespace-nowrap">
-                {t(`inventory.wtabs.${v}`)}
-              </TabsTrigger>
-            ))}
+            {warehouseTabs.map((tabDef) =>
+              'children' in tabDef ? (
+                <WarehouseTabGroup
+                  key={tabDef.group}
+                  group={tabDef.group}
+                  items={tabDef.children}
+                  active={wtab}
+                  onSelect={setWtab}
+                  t={t}
+                />
+              ) : (
+                <TabsTrigger key={tabDef.id} value={tabDef.id} className="whitespace-nowrap">
+                  {t(`inventory.wtabs.${tabDef.id}`)}
+                </TabsTrigger>
+              ),
+            )}
           </TabsList>
         </div>
 
@@ -329,7 +380,7 @@ export function Inventory() {
           />
         </TabsContent>
 
-        {warehouseTabs
+        {warehouseLeafIds
           .filter((v) => v !== 'residue')
           .map((v) => (
             <TabsContent key={v} value={v} className="mt-0">
@@ -338,7 +389,12 @@ export function Inventory() {
           ))}
       </Tabs>
 
-      <ProductDetailSheet product={selected} open={detailOpen} onOpenChange={setDetailOpen} />
+      <ProductDetailSheet
+        product={selected}
+        mode={createMode ? 'create' : 'edit'}
+        open={detailOpen}
+        onOpenChange={setDetailOpen}
+      />
     </div>
   );
 }

@@ -28,7 +28,16 @@ export const mockDocItems = [
 ];
 
 // Розділи, у яких картка документа має «Список товарів».
-export const docHasItems = new Set(['receipt', 'transfer', 'writeoff', 'conversion', 'supplierOrders', 'returns', 'count']);
+export const docHasItems = new Set([
+  'receipt',
+  'transfer',
+  'writeoff',
+  'conversion',
+  'supplierOrders',
+  'clientReturns',
+  'purchaseReturns',
+  'count',
+]);
 
 // Колір бейджа за статусом.
 export const statusColor: Record<string, string> = {
@@ -79,6 +88,45 @@ export const warehouseSections: Record<string, WSection> = {
       { num: 'PO-204', by: 'Аліна Г.', date: '22.06.2026', supplier: 'MobiPhone LV', status: 'Очікує', warehouse: 'Київ', sum: '120 000' },
       { num: 'PO-203', by: 'Аліна Г.', date: '15.06.2026', supplier: 'Ziko', status: 'Доставлено', warehouse: 'Львів', sum: '84 500' },
     ],
+  },
+
+  backorders: {
+    description: 'Товари, додані до замовлень клієнтів без списання з залишків, за налаштуваннями статусів.',
+    searchKey: 'name',
+    cols: [
+      { key: 'name', header: 'Найменування', kind: 'bold' },
+      { key: 'ticket', header: 'Заявка', kind: 'muted' },
+      { key: 'ordered', header: 'Замовлено', align: 'right' },
+      { key: 'inStock', header: 'В наявності', align: 'right' },
+      { key: 'lastPurchase', header: 'Остання закупівля', align: 'right' },
+      { key: 'supplier', header: 'Постачальник за замовч.', kind: 'muted' },
+    ],
+    rows: [],
+    emptyText: 'Товари з’являться тут, коли їх додадуть до замовлень клієнтів без списання залишків.',
+  },
+
+  reorder: {
+    description: 'Товари для закупівлі на основі мінімальних і максимальних залишків, вказаних у картці товару.',
+    searchKey: 'name',
+    cols: [
+      { key: 'name', header: 'Найменування', kind: 'bold' },
+      { key: 'warehouse', header: 'Склад', kind: 'muted' },
+      { key: 'toOrder', header: 'До замовлення', align: 'right' },
+      { key: 'inStock', header: 'В наявності', align: 'right' },
+      { key: 'lastPurchase', header: 'Остання закупівля', align: 'right' },
+      { key: 'supplier', header: 'Постачальник за замовч.', kind: 'muted' },
+    ],
+    rows: [
+      {
+        name: 'Блок Apple USB-C 20W (оригінал, рік гарантії)',
+        warehouse: 'Пирятин › Склад товарів',
+        toOrder: '3 шт',
+        inStock: '—',
+        lastPurchase: '890,22',
+        supplier: 'Цифротех',
+      },
+    ],
+    emptyText: 'Тут з’являться товари, залишок яких опустився нижче мінімального.',
   },
 
   receipt: {
@@ -191,18 +239,41 @@ export const warehouseSections: Record<string, WSection> = {
     ],
   },
 
-  returns: {
-    description: 'Оформлюйте повернення товарів від клієнтів та постачальникам.',
+  clientReturns: {
+    description: 'Перегляд усіх товарів, повернутих на склад із замовлень і продажів.',
     createLabel: 'Повернення',
+    searchKey: 'client',
     cols: [
       { key: 'num', header: 'Повернення', kind: 'bold' },
       { key: 'by', header: 'Створено' },
       { key: 'date', header: 'Дата', kind: 'muted' },
-      { key: 'client', header: 'Клієнт' },
+      { key: 'doc', header: 'Документ', kind: 'mono' },
       { key: 'warehouse', header: 'Склад', kind: 'muted' },
+      { key: 'client', header: 'Клієнт' },
       { key: 'sum', header: 'Сума', kind: 'sum', align: 'right' },
     ],
-    rows: [],
-    emptyText: 'Повернень поки немає.',
+    rows: [
+      { num: 'H72', by: 'Аліна Г.', date: '24.07.2026', doc: 'Продаж H2048', warehouse: 'Пирятин', client: '—', sum: '1 200' },
+      { num: 'H70', by: 'Аліна Г.', date: '25.05.2026', doc: 'Продаж H1236', warehouse: 'Пирятин', client: 'Олена Вікторівна', sum: '4 300' },
+    ],
+  },
+
+  purchaseReturns: {
+    description: 'Історія повернень постачальнику за документами оприбуткування.',
+    searchKey: 'supplier',
+    cols: [
+      { key: 'num', header: 'Повернення', kind: 'bold' },
+      { key: 'by', header: 'Створено' },
+      { key: 'date', header: 'Дата', kind: 'muted' },
+      { key: 'doc', header: 'Документ', kind: 'mono' },
+      { key: 'warehouse', header: 'Склад', kind: 'muted' },
+      { key: 'supplier', header: 'Постачальник' },
+      { key: 'sum', header: 'Сума', kind: 'sum', align: 'right' },
+    ],
+    rows: [
+      { num: 'H15', by: 'Христина Р.', date: '13.03.2026', doc: 'Оприбуткування H165', warehouse: 'Пирятин', supplier: 'ТТТ', sum: '890' },
+      { num: 'H4', by: 'Христина Р.', date: '20.08.2025', doc: 'Оприбуткування H53', warehouse: 'Пирятин', supplier: 'Vodafone', sum: '1 249' },
+    ],
+    emptyText: 'Повернень постачальнику поки немає.',
   },
 };

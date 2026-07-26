@@ -1,6 +1,5 @@
 import type { ReactNode } from 'react';
 import { Sidebar } from './Sidebar';
-import { Topbar } from './Topbar';
 import { Toaster } from '@dito/ui';
 import { useUI } from '../../store';
 
@@ -10,8 +9,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Sidebar />
-      <div className={`transition-all duration-200 ${sidebarOpen ? 'pl-60' : 'pl-16'}`}>
-        <Topbar />
+      <div className={`transition-all duration-200 ${sidebarOpen ? 'pl-52' : 'pl-16'}`}>
         <main className="p-6">{children}</main>
       </div>
       <Toaster />
