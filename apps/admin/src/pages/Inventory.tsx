@@ -34,6 +34,7 @@ import { products, type Product, type StockStatus } from '../data/products';
 import { ProductDetailSheet } from '../components/ProductDetailSheet';
 import { WarehouseSection } from '../components/WarehouseSection';
 import { DevicesSection } from '../components/DevicesSection';
+import { PostingsSection } from '../components/PostingsSection';
 import { FilterSelect } from '../components/FilterSelect';
 import { warehouseSections } from '../data/warehouse';
 import { useProducts } from '../stores/products';
@@ -385,8 +386,12 @@ export function Inventory() {
           <DevicesSection />
         </TabsContent>
 
+        <TabsContent value="receipt" className="mt-0">
+          <PostingsSection />
+        </TabsContent>
+
         {warehouseLeafIds
-          .filter((v) => v !== 'residue' && v !== 'devices')
+          .filter((v) => v !== 'residue' && v !== 'devices' && v !== 'receipt')
           .map((v) => (
             <TabsContent key={v} value={v} className="mt-0">
               <WarehouseSection id={v} section={warehouseSections[v]} />

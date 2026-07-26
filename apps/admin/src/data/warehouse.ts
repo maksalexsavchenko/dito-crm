@@ -29,7 +29,6 @@ export const mockDocItems = [
 
 // Розділи, у яких картка документа має «Список товарів».
 export const docHasItems = new Set([
-  'receipt',
   'transfer',
   'writeoff',
   'conversion',
@@ -49,7 +48,8 @@ export const statusColor: Record<string, string> = {
   Скасовано: 'bg-destructive/15 text-destructive',
 };
 
-// Пристрої (devices) мають власну сторінку — див. components/DevicesSection.
+// Пристрої (devices) та оприбуткування (receipt) мають власні сторінки —
+// див. components/DevicesSection і components/PostingsSection.
 export const warehouseSections: Record<string, WSection> = {
   supplierOrders: {
     description: 'Створюйте замовлення постачальнику для поповнення товарів і керування доставками.',
@@ -107,26 +107,6 @@ export const warehouseSections: Record<string, WSection> = {
       },
     ],
     emptyText: 'Тут з’являться товари, залишок яких опустився нижче мінімального.',
-  },
-
-  receipt: {
-    description: 'Оприбуткуйте товари на склад, щоб вести облік, відстежувати залишки та історію руху.',
-    createLabel: 'Оприбуткування',
-    searchKey: 'supplier',
-    cols: [
-      { key: 'num', header: 'Оприбуткування', kind: 'bold' },
-      { key: 'by', header: 'Створено' },
-      { key: 'date', header: 'Дата', kind: 'muted' },
-      { key: 'invoice', header: 'Накладна', kind: 'muted' },
-      { key: 'supplier', header: 'Постачальник' },
-      { key: 'warehouse', header: 'Склад', kind: 'muted' },
-      { key: 'sum', header: 'Сума', kind: 'sum', align: 'right' },
-    ],
-    rows: [
-      { num: 'H190', by: 'Христина Р.', date: '25.06.2026', invoice: 'Б/Н', supplier: 'MobiPhone LV', warehouse: 'Київ', sum: '57 204' },
-      { num: 'H189', by: 'Христина Р.', date: '18.06.2026', invoice: 'Б/Н', supplier: 'Ziko', warehouse: 'Львів', sum: '38 280' },
-      { num: 'H188', by: 'Аліна Г.', date: '08.06.2026', invoice: 'Trade-in', supplier: 'Trade-in', warehouse: 'Київ', sum: '12 500' },
-    ],
   },
 
   reservation: {
