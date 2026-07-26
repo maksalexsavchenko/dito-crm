@@ -105,8 +105,8 @@ function WarehouseTabGroup({
         <button
           type="button"
           className={cn(
-            'relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1 rounded-md border border-transparent px-2 py-1 text-sm font-medium whitespace-nowrap text-foreground/60 transition-all hover:text-foreground',
-            "after:absolute after:inset-x-0 after:bottom-[-5px] after:h-0.5 after:bg-foreground after:opacity-0 after:transition-opacity",
+            'relative inline-flex h-9 shrink-0 items-center justify-center gap-1 rounded-md border border-transparent px-2 py-1 text-sm font-medium whitespace-nowrap text-foreground/60 transition-all hover:text-foreground',
+            'after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:bg-foreground after:opacity-0 after:transition-opacity',
             isActive && 'text-foreground after:opacity-100',
           )}
         >
@@ -298,8 +298,12 @@ export function Inventory() {
       </div>
 
       <Tabs value={wtab} onValueChange={setWtab}>
-        <div className="no-scrollbar mb-4 overflow-x-auto border-b">
-          <TabsList variant="line" className="h-10 p-0">
+        {/* Вкладки переносяться на новий рядок (як у RoApp), а не ховаються в горизонтальний скрол. */}
+        <div className="mb-4 border-b">
+          <TabsList
+            variant="line"
+            className="h-auto w-full flex-wrap justify-start gap-x-1 gap-y-1 p-0 group-data-[orientation=horizontal]/tabs:h-auto"
+          >
             {warehouseTabs.map((tabDef) =>
               'children' in tabDef ? (
                 <WarehouseTabGroup
@@ -311,7 +315,11 @@ export function Inventory() {
                   t={t}
                 />
               ) : (
-                <TabsTrigger key={tabDef.id} value={tabDef.id} className="whitespace-nowrap">
+                <TabsTrigger
+                  key={tabDef.id}
+                  value={tabDef.id}
+                  className="h-9 flex-none whitespace-nowrap group-data-[orientation=horizontal]/tabs:after:bottom-0"
+                >
                   {t(`inventory.wtabs.${tabDef.id}`)}
                 </TabsTrigger>
               ),
