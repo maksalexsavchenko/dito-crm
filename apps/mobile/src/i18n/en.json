@@ -1,0 +1,171 @@
+{
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "close": "Close",
+    "continue": "Continue",
+    "retry": "Try again",
+    "loading": "Loading…",
+    "delete": "Delete",
+    "optional": "optional",
+    "copied": "Copied",
+    "comingSoon": "Coming soon"
+  },
+  "tabs": {
+    "home": "Home",
+    "card": "Guest card",
+    "locations": "Locations",
+    "more": "More"
+  },
+  "auth": {
+    "welcome": {
+      "title": "Your guest card, in your pocket",
+      "subtitle": "Earn bonuses on every purchase, track your history and get personal offers.",
+      "cta": "Sign in or sign up",
+      "legal": "By continuing you agree to the programme terms and the privacy policy."
+    },
+    "phone": {
+      "title": "Your phone number",
+      "subtitle": "We'll text you a verification code.",
+      "label": "Phone number",
+      "cta": "Send code",
+      "invalid": "Enter a number as 0XX XXX XX XX"
+    },
+    "otp": {
+      "title": "Verification code",
+      "subtitle": "We sent an SMS to {{phone}}",
+      "cta": "Confirm",
+      "resend": "Send the code again",
+      "resendIn": "You can request a new code in {{seconds}}s",
+      "devHint": "Demo mode: code {{code}}"
+    },
+    "register": {
+      "title": "Nice to meet you",
+      "subtitle": "A few more details and the card is yours.",
+      "firstName": "First name",
+      "lastName": "Last name",
+      "email": "Email",
+      "birthDate": "Date of birth",
+      "birthDateHint": "DD.MM.YYYY — so we can send a birthday bonus",
+      "gender": "Gender",
+      "female": "Female",
+      "male": "Male",
+      "unspecified": "Prefer not to say",
+      "cta": "Create account",
+      "welcomeBonus": "You'll get {{amount}} welcome bonuses right after signing up."
+    }
+  },
+  "home": {
+    "greeting": "Welcome, {{name}}!",
+    "balance": "Your balance",
+    "reviewTitle": "Leave a review",
+    "reviewBody": "Your opinion helps us get better — share your impressions!",
+    "news": "News",
+    "newsEmpty": "No news yet"
+  },
+  "card": {
+    "title": "Guest card",
+    "terms": "Terms",
+    "balance": "Balance",
+    "addWallet": "Add to Apple Wallet",
+    "walletUnavailable": "Apple Wallet arrives with the backend — the card already works via QR.",
+    "toNextTier": "{{amount}} more to reach “{{tier}}”",
+    "maxTier": "You're on the highest tier. Thanks for being with us!",
+    "hint": "Show this code at the till to earn bonuses",
+    "copyNumber": "Copy card number"
+  },
+  "locations": {
+    "title": "Locations",
+    "openNow": "Open",
+    "closed": "Closed",
+    "route": "Directions",
+    "call": "Call",
+    "empty": "No venues yet",
+    "mapUnavailable": "The map is available in the mobile app only."
+  },
+  "more": {
+    "title": "Settings",
+    "editProfile": "Edit profile",
+    "transactions": "Transaction history",
+    "notifications": "Notifications",
+    "review": "Leave a review",
+    "invite": "Invite friends",
+    "vouchers": "Redeem vouchers",
+    "about": "About the developer",
+    "terms": "Terms and conditions",
+    "privacy": "Privacy policy",
+    "logout": "Sign out",
+    "logoutConfirm": "Sign out of your account?",
+    "deleteAccount": "Delete account",
+    "deleteTitle": "Delete account?",
+    "deleteBody": "Your profile, purchase history and all accrued bonuses will be deleted permanently.",
+    "resetDemo": "Reset demo data"
+  },
+  "transactions": {
+    "title": "Transaction history",
+    "empty": "Your purchases and accruals will show up here",
+    "balanceAfter": "Balance: {{value}}",
+    "receipt": "Receipt",
+    "type": {
+      "purchase": "Purchase",
+      "bonus": "Accrual",
+      "redeem": "Paid with bonuses",
+      "expire": "Bonuses expired"
+    }
+  },
+  "profile": {
+    "title": "Edit profile",
+    "personal": "Personal details",
+    "contacts": "Contacts",
+    "phone": "Phone number",
+    "phoneLocked": "The phone number can't be changed — it identifies your card.",
+    "notifications": "Notifications",
+    "push": "Push notifications",
+    "emailNews": "News by email",
+    "saved": "Changes saved"
+  },
+  "vouchers": {
+    "title": "Redeem vouchers",
+    "codeLabel": "Voucher code",
+    "placeholder": "Enter the code",
+    "cta": "Redeem",
+    "history": "Redeemed vouchers",
+    "empty": "You haven't redeemed any vouchers yet",
+    "success": "{{amount}} bonuses credited",
+    "hint": "Demo codes: КАВА100, ДР2026"
+  },
+  "invite": {
+    "title": "Invite friends",
+    "body": "Share your code. When a friend signs up and makes their first purchase, you both get {{amount}} bonuses.",
+    "code": "Your code",
+    "copy": "Copy code",
+    "share": "Share"
+  },
+  "review": {
+    "title": "Leave a review",
+    "subtitle": "Rate a venue — it takes under a minute.",
+    "rating": "Rating",
+    "location": "Venue",
+    "anyLocation": "Not specified",
+    "comment": "Comment",
+    "placeholder": "What did you like, and what could be better?",
+    "cta": "Send review",
+    "thanks": "Thanks for your review!"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "empty": "No notifications yet",
+    "markRead": "Mark all as read"
+  },
+  "about": {
+    "title": "About the developer",
+    "body": "Built by Dito studio — we make websites, CRMs and mobile apps for business.",
+    "version": "Version",
+    "website": "Website",
+    "email": "Email",
+    "phone": "Phone"
+  },
+  "news": {
+    "title": "News"
+  }
+}

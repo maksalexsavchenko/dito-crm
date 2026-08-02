@@ -43,3 +43,4 @@ export function isEnabled(t: TenantConfig, f: FeatureFlag): boolean {
 }
 
 export * from './tenants';
+export * from './loyalty';
