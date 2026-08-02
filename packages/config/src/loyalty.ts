@@ -11,14 +11,6 @@ export interface LoyaltyTier {
   cashbackPercent: number;
   /** Cumulative qualifying spend needed to reach this tier. */
   threshold: number;
-  color: string;
-}
-
-export interface LoyaltyPalette {
-  primary: string;
-  primaryForeground: string;
-  /** Tinted surface used behind the guest card and other brand panels. */
-  accentSoft: string;
 }
 
 export interface LoyaltyBrand {
@@ -40,7 +32,6 @@ export interface LoyaltyBrand {
   bonusExpiryDays: number | null;
   /** Ordered from lowest to highest threshold. */
   tiers: LoyaltyTier[];
-  palette: LoyaltyPalette;
   supportPhone: string;
   supportEmail: string;
   website: string;
@@ -48,8 +39,9 @@ export interface LoyaltyBrand {
   appleWalletEnabled: boolean;
 }
 
-// Placeholder program for the pilot client. Swap the strings, palette and tier
-// table for the real brand — no screen code has to change.
+// Placeholder program for the pilot client. Swap the strings and tier table for
+// the real brand — no screen code has to change. Colours are not repeated here:
+// the app reads them from `tenants[tenantId].theme`, the same source the CRM uses.
 export const loyaltyBrands: Record<string, LoyaltyBrand> = {
   demo: {
     tenantId: 'demo',
@@ -62,16 +54,11 @@ export const loyaltyBrands: Record<string, LoyaltyBrand> = {
     maxBonusShare: 0.5,
     bonusExpiryDays: 365,
     tiers: [
-      { id: 'starter', name: 'Початківець', cashbackPercent: 3, threshold: 0, color: '#E8285A' },
-      { id: 'regular', name: 'Постійний', cashbackPercent: 5, threshold: 2400, color: '#C81E63' },
-      { id: 'silver', name: 'Срібний', cashbackPercent: 7, threshold: 6000, color: '#8E24AA' },
-      { id: 'gold', name: 'Золотий', cashbackPercent: 10, threshold: 15000, color: '#F5A623' },
+      { id: 'starter', name: 'Початківець', cashbackPercent: 3, threshold: 0 },
+      { id: 'regular', name: 'Постійний', cashbackPercent: 5, threshold: 2400 },
+      { id: 'silver', name: 'Срібний', cashbackPercent: 7, threshold: 6000 },
+      { id: 'gold', name: 'Золотий', cashbackPercent: 10, threshold: 15000 },
     ],
-    palette: {
-      primary: '#E8285A',
-      primaryForeground: '#FFFFFF',
-      accentSoft: '#FDEAF0',
-    },
     supportPhone: '+380 44 000 00 00',
     supportEmail: 'support@dito.com.ua',
     website: 'https://dito.com.ua',

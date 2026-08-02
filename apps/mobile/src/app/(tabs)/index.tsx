@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Bell, Star } from 'lucide-react-native';
 import { useBrand, useTheme } from '@/theme/ThemeProvider';
+import { tint } from '@/theme/tokens';
 import { formatMoney } from '@/domain/format';
 import { useAuth } from '@/stores/auth';
 import { selectUnreadCount, useLoyalty } from '@/stores/loyalty';
@@ -113,7 +114,7 @@ export default function HomeScreen() {
                 width: 40,
                 height: 40,
                 borderRadius: theme.radius.md,
-                backgroundColor: '#FFF4D6',
+                backgroundColor: tint(theme.color.warning, theme.scheme),
                 alignItems: 'center',
                 justifyContent: 'center',
               }}
