@@ -75,6 +75,7 @@ Maps API key when it is.
 There is no backend yet. `src/api/*` is the only module that knows this: it
 reads from a mock database persisted to AsyncStorage. Replacing those function
 bodies with `fetch()` calls is the entire migration — no screen or store changes.
+The contract those functions implement is written up in [docs/api.md](docs/api.md).
 
 - Any phone number goes through registration and starts with the welcome bonus.
 - `+380 67 000 00 00` logs into a seeded account with purchase history.
