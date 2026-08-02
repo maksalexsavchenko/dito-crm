@@ -31,21 +31,18 @@ export default function CardScreen() {
 
   useEffect(() => {
     navigation.setOptions({
+      // A plain text action, not a filled pill: this is a secondary link, and a
+      // solid button here competes with the card for attention.
       headerRight: () => (
         <Pressable
           accessibilityRole="button"
           onPress={() => router.push('/legal/terms')}
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            gap: 6,
-            backgroundColor: theme.color.primary,
-            borderRadius: theme.radius.pill,
-            paddingHorizontal: theme.space(3),
-            paddingVertical: theme.space(1.5),
-          }}
+          hitSlop={12}
+          // A custom headerRight gets no inset of its own and would sit flush
+          // against the screen edge.
+          style={{ paddingRight: theme.space(2) }}
         >
-          <Text variant="small" weight="600" tone="onPrimary">
+          <Text variant="body" tone="primary">
             {t('card.terms')}
           </Text>
         </Pressable>
@@ -65,63 +62,86 @@ export default function CardScreen() {
     Alert.alert(t('card.addWallet'), t('card.walletUnavailable'));
   };
 
+  const walletBackground = theme.scheme === 'dark' ? '#FFFFFF' : '#000000';
+  const walletForeground = theme.scheme === 'dark' ? '#000000' : '#FFFFFF';
+
   return (
     <View style={{ flex: 1, backgroundColor: theme.color.accentSoft }}>
       <Screen
         tabBarPadding
         transparent
-        contentStyle={{ padding: theme.space(4), gap: theme.space(5) }}
+        contentStyle={{ padding: theme.space(4), gap: theme.space(6) }}
       >
-        <Text variant="h3" tone="muted" center>
-          {now.toTimeString().slice(0, 8)}
-        </Text>
+        {/* The card itself: code, number and clock read as one object, so they
+            sit on one surface with tight spacing. */}
+        <Card style={{ alignItems: 'center', gap: theme.space(4), paddingVertical: theme.space(6) }}>
+          {/* Keeps its white plate: on a dark card the code still has to scan. */}
+          <QrPanel value={member.cardNumber} size={196} />
 
-        <QrPanel value={member.cardNumber} size={220} />
+          <Pressable accessibilityRole="button" onPress={copyNumber} hitSlop={8}>
+            <Text
+              variant="h3"
+              weight="600"
+              center
+              // Fixed-width digits so the number does not shift as it renders.
+              style={{ letterSpacing: 1, fontVariant: ['tabular-nums'] }}
+            >
+              {formatCardNumber(member.cardNumber, brand)}
+            </Text>
+          </Pressable>
 
-        <Pressable accessibilityRole="button" onPress={copyNumber}>
-          <Text variant="h3" weight="600" center>
-            {formatCardNumber(member.cardNumber, brand)}
+          <Text
+            variant="tiny"
+            tone="muted"
+            style={{ fontVariant: ['tabular-nums'] }}
+          >
+            {now.toTimeString().slice(0, 8)}
           </Text>
-        </Pressable>
+        </Card>
 
-        {/* Apple's guidelines fix the Wallet button as black with white content,
-            so it deliberately ignores the theme. */}
-        <Pressable
-          accessibilityRole="button"
-          onPress={addToWallet}
-          style={({ pressed }) => ({
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: theme.space(2),
-            alignSelf: 'center',
-            backgroundColor: '#000000',
-            borderRadius: theme.radius.pill,
-            paddingVertical: theme.space(3.5),
-            paddingHorizontal: theme.space(8),
-            opacity: pressed ? 0.85 : 1,
-          })}
-        >
-          <Wallet size={20} color="#FFFFFF" />
-          <Text variant="h3" weight="600" style={{ color: '#FFFFFF' }}>
-            {t('card.addWallet')}
+        <View style={{ gap: theme.space(4), alignItems: 'center' }}>
+          <Text variant="small" tone="muted" center>
+            {t('card.hint')}
           </Text>
-        </Pressable>
 
-        <View style={{ gap: theme.space(1), alignItems: 'center' }}>
-          <Text variant="body" tone="muted">
-            {t('card.balance')}
-          </Text>
-          <Text variant="h1" weight="700">
-            {formatMoney(member.bonusBalance)}
-          </Text>
+          {/* Apple ships the Wallet button in black and white variants; the
+              black one disappears on a dark background, so it follows the
+              scheme rather than the brand palette. */}
+          <Pressable
+            accessibilityRole="button"
+            onPress={addToWallet}
+            style={({ pressed }) => ({
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: theme.space(2),
+              alignSelf: 'center',
+              backgroundColor: walletBackground,
+              borderRadius: theme.radius.pill,
+              paddingVertical: theme.space(2.5),
+              paddingHorizontal: theme.space(5),
+              opacity: pressed ? 0.85 : 1,
+            })}
+          >
+            <Wallet size={16} color={walletForeground} />
+            <Text variant="body" weight="600" style={{ color: walletForeground }}>
+              {t('card.addWallet')}
+            </Text>
+          </Pressable>
         </View>
 
-        <Text variant="small" tone="muted" center>
-          {t('card.hint')}
-        </Text>
+        {/* Balance and tier progress are one story — how much you have and how
+            far to the next rate — so they share a surface. */}
+        <Card style={{ gap: theme.space(5) }}>
+          <View style={{ gap: theme.space(1), alignItems: 'center' }}>
+            <Text variant="small" tone="muted">
+              {t('card.balance')}
+            </Text>
+            <Text variant="h1" weight="700">
+              {formatMoney(member.bonusBalance)}
+            </Text>
+          </View>
 
-        <Card>
           <TierProgress spendTotal={member.spendTotal} />
         </Card>
       </Screen>
