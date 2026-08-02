@@ -8,7 +8,6 @@ import { useBrand, useTheme } from '@/theme/ThemeProvider';
 import { formatCardNumber, formatMoney } from '@/domain/format';
 import { useAuth } from '@/stores/auth';
 import { Card } from '@/components/Card';
-import { PatternBackground } from '@/components/PatternBackground';
 import { QrPanel } from '@/components/QrPanel';
 import { Screen } from '@/components/Screen';
 import { Text } from '@/components/Text';
@@ -67,7 +66,7 @@ export default function CardScreen() {
   };
 
   return (
-    <PatternBackground style={{ flex: 1 }}>
+    <View style={{ flex: 1, backgroundColor: theme.color.accentSoft }}>
       <Screen
         tabBarPadding
         transparent
@@ -126,6 +125,6 @@ export default function CardScreen() {
           <TierProgress spendTotal={member.spendTotal} />
         </Card>
       </Screen>
-    </PatternBackground>
+    </View>
   );
 }

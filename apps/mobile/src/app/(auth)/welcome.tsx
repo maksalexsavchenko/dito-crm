@@ -6,7 +6,6 @@ import { Gift, QrCode, Sparkles } from 'lucide-react-native';
 import { useBrand, useTheme } from '@/theme/ThemeProvider';
 import { Button } from '@/components/Button';
 import { Text } from '@/components/Text';
-import { PatternBackground } from '@/components/PatternBackground';
 
 export default function WelcomeScreen() {
   const theme = useTheme();
@@ -26,14 +25,20 @@ export default function WelcomeScreen() {
 
   return (
     <View style={{ flex: 1, backgroundColor: theme.color.background }}>
-      <PatternBackground style={{ flex: 1, justifyContent: 'flex-end' }}>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'flex-end',
+          backgroundColor: theme.color.accentSoft,
+        }}
+      >
         <View style={{ padding: theme.space(8), gap: theme.space(4) }}>
           <Text variant="h1">{brand.appName}</Text>
           <Text variant="h2" weight="600">
             {t('auth.welcome.title')}
           </Text>
         </View>
-      </PatternBackground>
+      </View>
 
       <View
         style={{

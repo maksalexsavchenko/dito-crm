@@ -10,7 +10,6 @@ import { formatMoney } from '@/domain/format';
 import { useAuth } from '@/stores/auth';
 import { selectUnreadCount, useLoyalty } from '@/stores/loyalty';
 import { Card } from '@/components/Card';
-import { PatternBackground } from '@/components/PatternBackground';
 import { QrPanel } from '@/components/QrPanel';
 import { Screen } from '@/components/Screen';
 import { SectionTitle } from '@/components/State';
@@ -81,7 +80,13 @@ export default function HomeScreen() {
 
       <View style={{ padding: theme.space(4), gap: theme.space(4) }}>
         <Pressable accessibilityRole="button" onPress={() => router.push('/(tabs)/card')}>
-          <PatternBackground style={{ borderRadius: theme.radius.lg }}>
+          <View
+            style={{
+              backgroundColor: theme.color.accentSoft,
+              borderRadius: theme.radius.lg,
+              overflow: 'hidden',
+            }}
+          >
             <View
               style={{
                 flexDirection: 'row',
@@ -104,7 +109,7 @@ export default function HomeScreen() {
 
               <QrPanel value={member.cardNumber} size={92} />
             </View>
-          </PatternBackground>
+          </View>
         </Pressable>
 
         <Pressable accessibilityRole="button" onPress={() => router.push('/review')}>
