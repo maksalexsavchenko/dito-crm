@@ -10,6 +10,7 @@ export default function AuthLayout() {
         headerStyle: { backgroundColor: theme.color.background },
         headerTintColor: theme.color.text,
         headerShadowVisible: false,
+        headerBackButtonDisplayMode: 'minimal',
         headerTitle: '',
         contentStyle: { backgroundColor: theme.color.background },
       }}

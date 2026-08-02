@@ -62,6 +62,9 @@ function RootNavigator() {
           headerTintColor: theme.color.text,
           headerTitleStyle: { fontSize: theme.font.h3, fontWeight: '600' },
           headerShadowVisible: false,
+          // Chevron only. The default label is the previous screen's title, and
+          // for a route group that is its directory name — "(tabs)" on screen.
+          headerBackButtonDisplayMode: 'minimal',
           contentStyle: { backgroundColor: theme.color.background },
         }}
       >
